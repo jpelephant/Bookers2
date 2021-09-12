@@ -4,14 +4,24 @@ class BooksController < ApplicationController
   end
 
   def create
-    book = Book.new(book_params)
-    book.user_id = current_user.id
-    book.save
-    redirect_to books_path
+    @book = Book.new(book_params)
+    @book.user_id = current_user.id
+  if @book.save
+    redirect_to books_path notice: 'You have created book successfully.'
+  else
+    flash.now[:alert] = ' error prohibited this obj from being saved:'
+     render :index
+  end
   end
 
   def index
-    @book = Book.all
+    @books = Book.all
+    @users = User.all
+    @book = Book.new
+  end
+
+  def edit
+    @book = book.find(params[:id])
   end
 
   def show

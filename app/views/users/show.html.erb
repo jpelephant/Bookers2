@@ -1,16 +1,28 @@
-<div class="profile-container">
-  <h3 class="profile-name"><%= @user.name %></h3>
-  <%= image_tag('sample-author1.jpg') %>
 </div>
 
-<% @books.each do |book| %>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Title</th>
+      <th>Opinion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @books.each do |book| %>
 <div>
   <%= link_to book_path(book.id) do %>
     <%= attachment_image_tag book, :image %>
   <% end %>
-  <p>Title：<%= book.book_name %></p>
-  <p>Opinion：<%= book.opinion %></p>
-  <p>Name：<%= book.user.name %></p>
-</div>
+    <tr>
+      <tb><%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %></tb>
+      <tb><%= book.book_name %></tb>
+      <tb><%= book.opinion %></tb>
+    </tr>
+    </div>
+  </tbody>
+</table>
+
 <% end %>
-<%= paginate @book %>
+

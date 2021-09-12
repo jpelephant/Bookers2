@@ -1,13 +1,28 @@
-<%= render 'book/list', book: @book %>
+<%= render 'book/list', books: @book %>
 
-
-<div class="post-body">
-  <%= attachment_image_tag @book, :image %>
-  <p>ショップ名：<%= @book.shop_name %></p>
-  <p>説明：<%= @book.caption %></p>
-  <p>ユーザーネーム：<%= @book.user.name %></p>
-  <p>投稿日時：<%= @book.created_at.strftime('%Y/%m/%d') %></p>
-  <% if @post_image.user == current_user %>
-    <%= link_to "削除", book_path(@book), method: :delete %>
+<main>
+<% @book.each do |book| %>
+<div class="container px-5 px-sm-0">
+<div class="col-md-8 offset-md-1">
+  <%= link_to book_path(book.id) do %>
+    <%= attachment_image_tag book, :image %>
   <% end %>
+<h2>Book detail</h2>
+<table>
+  <tbody>
+    <tr>
+      <tb><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg"%>
+  <label for="inputImage">ProfileImage</label></tb>
+      <tb><%= link_to "user.name" users(params[:id]) %></tb>
+      <tb><%= link_to "book_title" book_path %></tb>
+      <tb></tb>
+   <% if @user.id == current_user.id %>
+    <tb><p><%= link_to "Edit", edit_user_path(@user) %></p></tb>
+      <tb><p><%= link_to 'Destroy',book_path(@book), method: :delete class: "btn btn-secondary" %></p></tb>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
 </div>
+</main>
+<% end %>
