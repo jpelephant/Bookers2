@@ -1,11 +1,10 @@
-<%= render 'book/list', books: @book %>
+<%= render 'books/list', user: @user, book: @book %>
 
 <main>
-<% @book.each do |book| %>
 <div class="container px-5 px-sm-0">
 <div class="col-md-8 offset-md-1">
-  <%= link_to book_path(book.id) do %>
-    <%= attachment_image_tag book, :image %>
+  <%= link_to book_path(@book.id) do %>
+    <%= attachment_image_tag @book.user, :profile_image %>
   <% end %>
 <h2>Book detail</h2>
 <table>
@@ -13,16 +12,15 @@
     <tr>
       <tb><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg"%>
   <label for="inputImage">ProfileImage</label></tb>
-      <tb><%= link_to "user.name" users(params[:id]) %></tb>
-      <tb><%= link_to "book_title" book_path %></tb>
+      <tb><%= link_to "user.name", user_path(@book.user_id)%></tb>
+      <tb><%= link_to "book_title", book_path %></tb>
       <tb></tb>
    <% if @user.id == current_user.id %>
     <tb><p><%= link_to "Edit", edit_user_path(@user) %></p></tb>
-      <tb><p><%= link_to 'Destroy',book_path(@book), method: :delete class: "btn btn-secondary" %></p></tb>
+      <tb><p><%= link_to "Destroy", book_path(@book), method: :delete, class: "btn btn-secondary" %></p></tb>
       <% end %>
     </tr>
   </tbody>
 </table>
 </div>
 </main>
-<% end %>

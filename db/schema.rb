@@ -17,10 +17,10 @@ ActiveRecord::Schema.define(version: 2021_09_09_084338) do
     t.string "image_id"
     t.text "caption"
     t.integer "user_id"
+    t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "opinion"
-    t.string "book_name"
   end
 
   create_table "users", force: :cascade do |t|
