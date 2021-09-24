@@ -1,3 +1,8 @@
+<% if flash[:notice] %>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
 <p id="notice"></p>
 <div class="container px-5 px-sm-0">
   <div class="row">
@@ -19,8 +24,8 @@
             <% @books.each do |book| %>
             <%= attachment_image_tag book, :image %>
             <tr>
-              <td><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg"%></td>
-              <td><%= link_to (book.title), book_path(book.id) %></td>
+              <td><%= attachment_image_tag @user, :profile_image, size:"40x40", fallback: "no_image.jpg"%></td>
+              <td><%= link_to (book.title), user_path(current_user) %></td>
               <td><%= book.opinion %></td>
             </tr>
             <% end %>

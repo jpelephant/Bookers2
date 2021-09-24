@@ -30,6 +30,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
+      flash[:notice] = "You have updated user successfully."
       redirect_to user_path(@user.id)
     else
       flash.now[:alert] = ' error prohibited this obj from being saved:'
