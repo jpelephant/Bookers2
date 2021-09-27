@@ -1,5 +1,7 @@
 class BooksController < ApplicationController
 
+  before_action :correct_edit,only: [:edit]
+
  def index
   @books = Book.all
   @users = User.all
@@ -29,13 +31,18 @@ class BooksController < ApplicationController
 
   def update
     @book = Book.find(params[:id])
-    @book.update(book_params)
-    flash[:notice] = "You have updated book successfully."
-    redirect_to book_path(@book.id)
+    if @book.update(book_params)
+      flash[:notice] = "You have updated book successfully."
+      redirect_to book_path(@book.id)
+    else
+      @book_new = Book.new
+      render :edit
+    end
   end
 
   def show
     @book = Book.find(params[:id])
+    @book_new = Book.new
     @books = Book.all
     @users = User.all
     @user = current_user
@@ -47,12 +54,19 @@ class BooksController < ApplicationController
     redirect_to books_path
   end
 
+  def correct_edit
+    @book = Book.find(params[:id])
+    unless @book.user.id == current_user.id
+      redirect_to books_path
+    end
+  end
+
   private
   #def user_params
     #params.require(:user).permit(:name,:profile_image,:introduction)
   #end
 
   def book_params
-    params.require(:book).permit(:title,:opinion)
+    params.require(:book).permit(:title,:body)
   end
 end
